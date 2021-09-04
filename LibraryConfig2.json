@@ -1,0 +1,10 @@
+{
+  "baseUrl": "./Library",
+  "paths": {
+    "moment": "moment",
+    "lodash": "lodash",
+    "Crypto": "CryptoJS",
+    "jszip": "jszip.min",
+    "xlsx": "xlsx.min"
+  }
+}

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+<title>Joondalup Health Campus</title>
+<style>
+    #container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-family: arial;
+    }
+
+    #form-container {
+        height: 100%;
+        width: 1000px;
+        margin: 0 auto;
+        background: white;
+    }
+
+    #logo {
+        margin-top: 20px;
+        width: 320px;
+        height: 134px;
+    }
+
+    .center-content {
+        display: flex;
+        align-items: center;
+        padding-top: 40px;
+        flex-direction: row-reverse;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .spacer {
+        margin: 10px;
+    }
+
+    .input-value {
+        width: 100%;
+    }
+
+    input[type="text"] {
+        width: calc(100% - 5px);
+        padding-left: 5px;
+        border: 0;
+        outline: none;
+    }
+
+    .dotted-border {
+        border-bottom: 1px dotted black;
+    }
+
+    .top-label {
+        font-size: 15px;
+    }
+
+    .mid-label {
+        font-size: 15px;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .footer-label {
+        font-size: 12px;
+        width: 100%;
+        font-weight: bold;
+        letter-spacing: 1px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .margin-right-10 {
+        margin-right: 10px !important;
+    }
+
+    .margin-left-10 {
+        margin-left: 10px;
+    }
+
+    .margin-side {
+        margin-right: 5px;
+        margin-left: 10px;
+    }
+
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .margin-top-10 {
+        margin-top: 10px;
+    }
+
+    .flex-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .margin-left-20 {
+        margin-left: 20px;
+    }
+
+    .width-65 {
+        width: 65px;
+    }
+
+    .width-20 {
+        width: 20px;
+    }
+
+    .flex-end {
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .padding-5 {
+        padding: 5px;
+    }
+
+    .margin-top-5 {
+        margin-top: 5px;
+    }
+
+    .default-border {
+        border: 1px solid #194379;
+    }
+
+    .default-border-bottom {
+        border-bottom: 1px solid #194379;
+    }
+
+    .default-border-top {
+        border-top: 1px solid #194379;
+    }
+
+    .default-border-left {
+        border-left: 1px solid #194379;
+    }
+
+    .crimson {
+        color: #881844;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .default-color {
+        color: #194379;
+    }
+
+    .margin-left-23 {
+        margin-left: 23px;
+    }
+
+    .right-bg {
+        height: calc(100% + -35px);
+        background-color: #194379;
+        position: absolute;
+        width: 42px;
+        top: 0;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .rotated-text {
+        transform: rotate(-90deg);
+        white-space: nowrap;
+        position: relative;
+        top: 353px;
+        display: flex;
+        justify-content: flex-end;
+        font-weight: bold;
+    }
+</style>
+
+<body class="default-color">
+    <div id="container">
+        <div id="form-container">
+            <div class="center-content">
+                <div style="width: 85%; margin-right: 41px;">
+                    <div class="flex">
+                        <div class="crimson nowrap" style="font-size: 10px;">
+                            SECTION B
+                        </div>
+                        <div style="width: 42%">
+                            <img src="jhc.png" id="logo">
+                        </div>
+                        <div class="flex-column default-border" style="width: 55%;">
+                            <div class="spacer flex">
+                                <div class="top-label">
+                                    MRN:
+                                </div>
+                                <div class="input-value dotted-border">
+                                    <input type="text"></input>
+                                </div>
+                            </div>
+                            <div class="spacer flex">
+                                <div class="top-label">
+                                    Surname:
+                                </div>
+                                <div class="input-value dotted-border">
+                                    <input type="text"></input>
+                                </div>
+                            </div>
+                            <div class="spacer flex">
+                                <div class="top-label">
+                                    Forename:
+                                </div>
+                                <div class="input-value dotted-border">
+                                    <input type="text"></input>
+                                </div>
+                            </div>
+                            <div class="spacer flex">
+                                <div class="flex">
+                                    <div class="top-label">
+                                        Gender:
+                                    </div>
+                                    <div class="input-value dotted-border">
+                                        <input type="text"></input>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div class="top-label">
+                                        D.O.B:
+                                    </div>
+                                    <div class="input-value dotted-border">
+                                        <input type="text"></input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="flex-column default-border"
+                        style="width: calc(100% - 37px); float: right; font-size: 14px;">
+                        <div class="mid-label default-border-bottom crimson" style="margin-top: 2px;">
+                            TO BE COMPLETED IN FULL BY PATIENT / GUARDIAN
+                        </div>
+                        <div class="flex">
+                            <div id="left-info" style="width: 50%; border-right: 1px solid #194379;">
+                                <div class="flex" style="padding: 5px;">
+                                    <div class="flex-item">
+                                        <label class="margin-left-10 margin-side">Mr</label>
+                                        <input type="checkbox">
+                                    </div>
+                                    <div class="flex-item">
+                                        <label class="margin-side">Mrs</label>
+                                        <input type="checkbox">
+                                    </div>
+                                    <div class="flex-item">
+                                        <label class="margin-side">Miss</label>
+                                        <input type="checkbox">
+                                    </div>
+                                    <div class="flex-item">
+                                        <label class="margin-side">Ms</label>
+                                        <input type="checkbox">
+                                    </div>
+                                    <div class="flex-item">
+                                        <label class="margin-side">Other</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Patient Surname:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Patient Given Name(s):</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex margin-top-10">
+                                        <div class="flex-column nowrap">
+                                            <label class="margin-side bold">Previous Surname:</label>
+                                            <label class="margin-side">(or Maiden Name)</label>
+                                        </div>
+                                        <span class="dotted-border full-width flex-end">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Addresss:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <span class="dotted-border full-width margin-left-10">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <span class="dotted-border full-width margin-left-10">
+                                            <input type="text"></input>
+                                        </span>
+                                        <label class="margin-side nowrap bold">Postcode:</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap"><b>Telephone:</b> (H):</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap">(W):</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                        <label class="margin-side nowrap">(M):</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap">Email:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="flex default-border-top padding-5">
+                                    <div class="flex-item" style="width: 118px;">
+                                        <label class="margin-left-10 margin-side">Male</label>
+                                        <input type="checkbox">
+                                    </div>
+                                    <div class="flex-item margin-left-10">
+                                        <label class="margin-side width-65">Female</label>
+                                        <input type="checkbox">
+                                    </div>
+                                </div>
+
+                                <div class="flex default-border-top padding-5">
+                                    <div>
+                                        <label class="margin-side nowrap">Marital Status:</label>
+                                    </div>
+                                    <div class="flex-column margin-left-23">
+                                        <div class="flex-item">
+                                            <label class="margin-left-10 margin-side width-65">Single</label>
+                                            <input type="checkbox">
+                                        </div>
+                                        <div class="flex-item margin-top-10">
+                                            <label class="margin-left-10 margin-side width-65">Married</label>
+                                            <input type="checkbox">
+                                        </div>
+                                        <div class="flex-item margin-top-10">
+                                            <label class="margin-left-10 margin-side width-65">Divorced</label>
+                                            <input type="checkbox">
+                                        </div>
+                                    </div>
+                                    <div class="flex-column margin-left-23">
+                                        <div class="flex-item">
+                                            <label class="margin-left-10 margin-side width-65">De facto</label>
+                                            <input type="checkbox">
+                                        </div>
+                                        <div class="flex-item margin-top-10">
+                                            <label class="margin-left-10 margin-side width-65">Separated</label>
+                                            <input type="checkbox">
+                                        </div>
+                                        <div class="flex-item margin-top-10">
+                                            <label class="margin-left-10 margin-side width-65">Widowed</label>
+                                            <input type="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex default-border-top">
+                                    <div class="flex full-width padding-5">
+                                        <div class="flex-column nowrap">
+                                            <label class="margin-side">Date</label>
+                                            <label class="margin-side">of Birth:</label>
+                                        </div>
+                                        <span class="dotted-border full-width flex-end">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+
+                                    <div class="flex padding-5 default-border-left">
+                                        <label class="margin-side nowrap flex-end">Age:</label>
+                                        <span class="dotted-border flex-end">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item">
+                                        <div>
+                                            <label class="margin-side nowrap">Were you born in <b>Australia?</b></label>
+                                        </div>
+                                        <div class="flex margin-left-20" style="margin-left: 33px;">
+                                            <div class="flex-item">
+                                                <label class="margin-left-10 margin-side width-20">Yes</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 13px;">
+                                                <label class="margin-left-10 margin-side width-20">No</label>
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap">If <b>Yes</b>, Which State?</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <div style=" width: 174px;">
+                                            <label class="margin-side nowrap">Were you born <b>overseas?</b></label>
+                                        </div>
+                                        <div class="flex margin-left-20" style="margin-left: 53px;">
+                                            <div class="flex-item">
+                                                <label class="margin-left-10 margin-side width-20">Yes</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 13px;">
+                                                <label class="margin-left-10 margin-side width-20">No</label>
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap">If <b>Yes</b>, Which Country?</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <div style=" width: 174px;">
+                                            <label class="margin-side nowrap">Are you a resident of Australia?</label>
+                                        </div>
+                                        <div class="flex margin-left-20" style="margin-left: 53px;">
+                                            <div class="flex-item">
+                                                <label class="margin-left-10 margin-side width-20">Yes</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 13px;">
+                                                <label class="margin-left-10 margin-side width-20">No</label>
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex margin-top-10">
+                                        <div>
+                                            <label class="margin-side nowrap bold">Ethnic Origin</label>
+                                        </div>
+                                        <div class="flex-column" style="margin-left: 62px;">
+                                            <div class="flex-item">
+                                                <label class="margin-left-10 margin-side nowrap"
+                                                    style="width: 150px;">Aboriginal</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item margin-top-10">
+                                                <label class="margin-left-10 margin-side nowrap"
+                                                    style="width: 150px;">Torres Strait Islander</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item margin-top-10">
+                                                <label class="margin-left-10 margin-side nowrap"
+                                                    style="width: 150px;">Other</label>
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <div>
+                                            <label class="margin-side nowrap bold">Interpreter Service
+                                                Required?</label>
+                                        </div>
+                                        <div class="flex" style="margin-left: 15.2px;">
+                                            <div class="flex-item">
+                                                <label class="margin-side width-20">Yes</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 13px;">
+                                                <label class="margin-side width-20">No</label>
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap">If <b>Yes</b>, Language spoken at
+                                            home?</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap">Religion / Denomination (Optional):</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item">
+                                        <label class="margin-side margin-top-5">
+                                            <div>As part of our commitment to the holistic care of our</div>
+                                            <div class="margin-top-5">patients, our Chaplains and Pastoral staff are
+                                                available</div>
+                                            <div class="margin-top-5">to lend their support to you and your family.
+                                                Please</div>
+                                            <div class="margin-top-5">indicate if you would like to receive a</div>
+                                        </label>
+                                    </div>
+                                    <div class="flex-item">
+                                        <div class="margin-top-5">
+                                            <label class="margin-side nowrap">visit whilst in hospital.</label>
+                                        </div>
+                                        <div class="flex" style="margin-left: 78px;">
+                                            <div class="flex-item">
+                                                <label class="margin-side width-20">Yes</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 13px;">
+                                                <label class="margin-side width-20">No</label>
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item">
+                                        <label class="margin-side">
+                                            Are you (or your child) available at short notice (less than one
+                                        </label>
+                                    </div>
+                                    <div class="flex-item">
+                                        <div>
+                                            <label class="margin-side nowrap">week) for admission to Hospital?</label>
+                                        </div>
+                                        <div class="flex" style="margin-left: 10px;">
+                                            <div class="flex-item">
+                                                <label class="margin-side width-20">Yes</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 13px;">
+                                                <label class="margin-side width-20">No</label>
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Medicare No:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Patients Ref No:</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                        <label class="margin-side nowrap bold">Card Expiry Date:</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Pension No:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Pharmaceutical Entitlement No:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div id="right-info" style="width: 50%;">
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item">
+                                        <label class="margin-side">
+                                            <div>Have you been a patient at Joondalup Health Campus or</div>
+                                            <div>Wanneroo Hospital?</div>
+                                        </label>
+                                    </div>
+                                    <div class="flex-item" style="margin-left: 45px;">
+                                        <div class="flex" style="margin-left: 78px;">
+                                            <div class="flex-item">
+                                                <label class="margin-side width-20 margin-right-10">Yes</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 25px;">
+                                                <label class="margin-side width-20 margin-right-10">No</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 25px;">
+                                                <label class="margin-side width-20 nowrap">If <b>Yes,</b></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-item margin-top-5" style="margin-left: 45px;">
+                                        <div class="flex" style="margin-left: 47px;">
+                                            <div class="flex-item">
+                                                <label class="margin-side width-20 nowrap"
+                                                    style="margin-right: 41px;">Inpatient</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <label class="margin-side nowrap">Year(s)?</label>
+                                            <span class="dotted-border full-width">
+                                                <input type="text"></input>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-item margin-top-5" style="margin-left: 45px;">
+                                        <div class="flex" style="margin-left: -4px;">
+                                            <div class="flex-item">
+                                                <label class="margin-side width-20 nowrap"
+                                                    style="margin-right: 92px;">Emergency Dept.</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <label class="margin-side nowrap">Year(s)?</label>
+                                            <span class="dotted-border full-width">
+                                                <input type="text"></input>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="flex margin-top-10">
+                                        <div class="flex-column nowrap">
+                                            <label class="margin-side">Surname</label>
+                                            <label class="margin-side">if different from above?</label>
+                                        </div>
+                                        <span class="dotted-border full-width flex-end">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Name of next of kin:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Address:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <span class="dotted-border full-width margin-left-10">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <span class="dotted-border full-width margin-left-10">
+                                            <input type="text"></input>
+                                        </span>
+                                        <label class="margin-side nowrap bold">Postcode:</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap"><b>Telephone:</b> (H):</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap">(W):</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                        <label class="margin-side nowrap">(M):</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Relationshipto Patient:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Name of contact person:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Address:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <span class="dotted-border full-width margin-left-10">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <span class="dotted-border full-width margin-left-10">
+                                            <input type="text"></input>
+                                        </span>
+                                        <label class="margin-side nowrap bold">Postcode:</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap"><b>Telephone:</b> (H):</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap">(W):</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                        <label class="margin-side nowrap">(M):</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Relationshipto Patient:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item">
+                                        <label class="margin-side nowrap bold">Referring Doctor (GP):</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Referring Medical Centre:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Address:</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <span class="dotted-border full-width margin-left-10">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <span class="dotted-border full-width margin-left-10">
+                                            <input type="text"></input>
+                                        </span>
+                                        <label class="margin-side nowrap bold">Postcode:</label>
+                                        <span class="dotted-border">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side nowrap bold">Telephone</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex-column default-border-top padding-5">
+                                    <div class="flex-item">
+                                        <label class="margin-side bold">
+                                            <div>HAVE YOU BEEN A PATIENT, EMPLOYEE OR</div>
+                                            <div>RESIDENT IN A HOSPITAL OR HEALTH CARE FACILITY</div>
+                                            <div>IN THE PAST 12 MONTHS?</div>
+                                        </label>
+                                    </div>
+                                    <div class="flex-item" style="margin-left: 140px;">
+                                        <div class="flex" style="margin-left: 78px;">
+                                            <div class="flex-item">
+                                                <label class="margin-side width-20 margin-right-10">Yes</label>
+                                                <input type="checkbox">
+                                            </div>
+                                            <div class="flex-item" style="margin-left: 25px;">
+                                                <label class="margin-side width-20 margin-right-10">No</label>
+                                                <input type="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-item margin-top-5">
+                                        <label class="margin-side nowrap">If <b>Yes</b>, Where?</label>
+                                        <span class="dotted-border full-width">
+                                            <input type="text"></input>
+                                        </span>
+                                    </div>
+                                    <div class="flex-item margin-top-10">
+                                        <label class="margin-side bold ">
+                                            <div>IF THE HOSPITAL WAS OUTSIDE W.A. PLEASE</div>
+                                            <div>CONTACT INFECTION CONTROL DEPARTMENT AT</div>
+                                            <div>JOONDALUP HEALTH CAMPUS IMMEDIATELY.</div>
+                                            <div>TEL: (08) 9400 9736</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mid-label crimson default-border-top margin-top-5"
+                                    style="padding-top: 2px;">
+                                    OFFICE USE ONLY
+                                </div>
+                                <div class="flex default-border-top">
+                                    <div style="width: 50%;">
+                                        <div class="flex-column">
+                                            <div class="flex padding-5">
+                                                <div class="flex-column nowrap bold">
+                                                    <label>Admission</label>
+                                                    <label>Date:</label>
+                                                </div>
+                                                <span class="full-width flex-end">
+                                                    <input type="text"></input>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-column default-border-top">
+                                            <div class="flex padding-5">
+                                                <div class="flex-column nowrap bold">
+                                                    <label>Admission</label>
+                                                    <label>Time:</label>
+                                                </div>
+                                                <span class="full-width flex-end">
+                                                    <input type="text"></input>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-column default-border-top">
+                                            <div class="flex padding-5">
+                                                <div class="flex-column nowrap bold">
+                                                    <br>
+                                                    <label>Doctor:</label>
+                                                </div>
+                                                <span class="full-width flex-end">
+                                                    <input type="text"></input>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 50%;">
+                                        <div class="flex-column default-border-left">
+                                            <div class="flex padding-5">
+                                                <div class="flex-column nowrap bold">
+                                                    <br>
+                                                    <label>MRN:</label>
+                                                </div>
+                                                <span class="full-width flex-end">
+                                                    <input type="text"></input>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-column default-border-top default-border-left">
+                                            <div class="flex padding-5">
+                                                <div class="flex-column nowrap bold">
+                                                    <br>
+                                                    <label>ADM:</label>
+                                                </div>
+                                                <span class="full-width flex-end">
+                                                    <input type="text"></input>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="flex-column default-border-top default-border-left">
+                                            <div class="flex padding-5">
+                                                <div class="flex-column nowrap bold">
+                                                    <br>
+                                                    <label>Booking No:</label>
+                                                </div>
+                                                <span class="full-width flex-end">
+                                                    <input type="text"></input>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='footer-label crimson' style="padding-top: 10px; padding-bottom: 5px;">
+                        PLEASE ENSURE YOU HAVE COMPLETED THE FINANCIAL ELECTION FORM
+                    </div>
+                </div>
+                <div class="right-bg">
+                    <div class="rotated-text">
+                        HR 110 PATIENT ADMISSION INFORMATION
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

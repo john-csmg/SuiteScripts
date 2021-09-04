@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+    <title>Stage 6</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="foundation.min.css">
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.5.min.css">
+    <link rel="stylesheet" href="arrow-progress-bar.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <div>
+        <div class="title-bar" data-responsive-toggle="responsive-menu">
+            <button class="menu-icon" type="button" data-toggle="responsive-menu"></button>
+        </div>
+
+        <div class="top-bar" id="responsive-menu">
+            <div class="top-bar-left">
+                <ul class="vertical large-horizontal menu" data-responsive-menu="drilldown large-dropdown">
+                    <li><a onClick="window.location.reload();">Home</a></li>
+                    <li class="has-submenu">
+                        <a href="#">Brands</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="#">Test</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Sites</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="#">Test</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Contacts</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="#">Test</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Tasks</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="#">Test</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Files</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="#">Test</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Reports</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="#">Test</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">Dashboard</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="#">Test</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <br>
+
+        <div id="tiles" class="row">
+            <div class="column medium-4">
+                <div class="card">
+                    <div class="card-section text-center">
+                        <h3 class="bolder">Small Red</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="column medium-4">
+                <div class="card">
+                    <div class="card-section text-center">
+                        <h3 class="bolder">Repair</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="column medium-4">
+                <div class="card">
+                    <div class="card-section text-center">
+                        <h3 class="bolder">Brand x</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="column medium-4">
+                <div class="card">
+                    <div class="card-section text-center">
+                        <h3 class="bolder">Brand Y</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="column medium-4">
+                <div class="card">
+                    <div class="card-section text-center">
+                        <h3 class="bolder">Brand Z</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard" class="hide">
+        <ul class="accordion" data-accordion>
+            <li class="accordion-item is-active" data-accordion-item>
+                <div class="accordion-title">
+                    <div class="row">
+                        <div class="columns">
+                            <div class="row columns">
+                                <nav aria-label="You are here:" role="navigation">
+                                    <ul class="breadcrumbs">
+                                        <li>
+                                            <span class="show-for-sr"></span>
+                                            <span class="bolder">Small Red</span>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="columns margin-auto">
+                            <div id="accordion-title-buttons" class="button-group hollow no-gaps float-right">
+                                <a id="addMsa" class="button hollow">Add MSA</a>
+                                <a id="addFp" class="button hollow">Add FP</a>
+                                <a class="button hollow">See More</a>
+                                <a class="button hollow">Delete</a>
+                                <a class="button hollow">Clone</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-content" data-tab-content>
+                    <div id='chart-here' class="row large-unstack">
+                        <div class="columns">
+                            <canvas id="myChart"
+                                style="height: 200px; width: 768px; box-sizing: border-box; display: block;">
+                            </canvas>
+                        </div>
+                        <div class="columns">
+                            <div class="row large-unstack">
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        Brand Owner
+                                    </div>
+                                    <div class="bolder">
+
+                                    </div>
+                                </div>
+                                <div id="franchise" class="small-2 columns">
+                                    <div class="title">
+                                        Franchise Partners
+                                    </div>
+                                    <div class="bolder">
+                                        24
+                                    </div>
+                                </div>
+                                <div id="msa" class="small-2 columns">
+                                    <div class="title">
+                                        MSAs
+                                    </div>
+                                    <div class="bolder">
+                                        65
+                                    </div>
+                                </div>
+                                <div id="territory" class="small-2 columns">
+                                    <div class="title">
+                                        Territories
+                                    </div>
+                                    <div class="bolder">
+                                        436
+                                    </div>
+                                </div>
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        Opportunity Sites
+                                    </div>
+                                    <div class="bolder">
+                                        1,242
+                                    </div>
+                                </div>
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        Active Sites
+                                    </div>
+                                    <div class="bolder">
+                                        145
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row large-unstack">
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        On Track
+                                    </div>
+                                    <div class="bolder">
+                                        234
+                                    </div>
+                                </div>
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        At Risk
+                                    </div>
+                                    <div class="is-invalid-label bolder">
+                                        4
+                                    </div>
+                                </div>
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        6 Mo Proj
+                                    </div>
+                                    <div class="bolder">
+                                        12
+                                    </div>
+                                </div>
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        12 Mo Proj
+                                    </div>
+                                    <div class="bolder">
+                                        118
+                                    </div>
+                                </div>
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        18 Mo Proj
+                                    </div>
+                                    <div class="bolder">
+                                        221
+                                    </div>
+                                </div>
+                                <div class="small-2 columns">
+                                    <div class="title">
+                                        24 Mo Proj
+                                    </div>
+                                    <div class="bolder">
+                                        243
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='stage-here' class="row large-unstack hide">
+                        <div class="row large-unstack">
+                            <div class="columns">
+                                <h4><b id="stage"></b></h4>
+                            </div>
+                            <div class="columns">
+                                <div id="accordion-content-buttons" class="button-group hollow no-gaps float-right">
+                                    <a class="button hollow">Edit</a>
+                                    <a class="button hollow">Delete</a>
+                                    <a class="button hollow">Clone</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row large-unstack">
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Type
+                                </div>
+                                <div class="bolder">
+                                    Strip Mall
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Landlord
+                                </div>
+                                <div class="bolder">
+                                    Simon Malls
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Difficulty
+                                </div>
+                                <div class="bolder">
+                                    ◆◆
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Active Since
+                                </div>
+                                <div class="bolder">
+                                    03/15/2020
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    DM
+                                </div>
+                                <div class="bolder">
+                                    EC
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    CM
+                                </div>
+                                <div class="bolder">
+                                    ABC
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    FP Owner
+                                </div>
+                                <div class="bolder">
+                                    SESS
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Sq. Ft.
+                                </div>
+                                <div class="bolder">
+                                    9,784
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Trade Area
+                                </div>
+                                <div id="trade" class="bolder">
+
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    City
+                                </div>
+                                <div id="city" class="bolder">
+
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    State
+                                </div>
+                                <div id="state" class="bolder">
+
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Zip
+                                </div>
+                                <div class="bolder">
+                                    30305
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    TA Type
+                                </div>
+                                <div class="bolder">
+                                    Urban
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row large-unstack">
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Property Type
+                                </div>
+                                <div class="bolder">
+                                    Nbrhd Ctr
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Base Rent
+                                </div>
+                                <div class="bolder">
+                                    $25
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    TMI
+                                </div>
+                                <div class="bolder">
+                                    $3.65
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Gross Annual Rent
+                                </div>
+                                <div class="bolder">
+                                    $486, 907
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    WL
+                                </div>
+                                <div class="bolder">
+                                    Full WL
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    TIA
+                                </div>
+                                <div class="bolder">
+                                    $1,000,000
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Free Rent
+                                </div>
+                                <div class="bolder">
+                                    81,250
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Gross CAPEX
+                                </div>
+                                <div class="bolder">
+                                    $2,905,888
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Net CAPEX
+                                </div>
+                                <div id="trade" class="bolder">
+                                    -$800,000
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Total Investment
+                                </div>
+                                <div class="bolder">
+                                    $2,100,000
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Total Inv. PSF
+                                </div>
+                                <div id="state" class="bolder">
+                                    $2,100,000
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Term
+                                </div>
+                                <div class="bolder">
+                                    10
+                                </div>
+                            </div>
+                            <div class="small-2 columns">
+                                <div class="title">
+                                    Options
+                                </div>
+                                <div class="bolder">
+                                    4x5
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <ul id="arrow-progress-bar" class="accordion hide" data-accordion>
+            <li class="accordion-item is-active" data-accordion-item>
+                <div class="accordion-title hide">
+                </div>
+                <div class="accordion-content" data-tab-content>
+                    <div class="row large-unstack align-middle ">
+                        <div class="columns small-9">
+                            <div class="arrow-steps clearfix">
+                                <div class="step current"> <span> Stage 1</span> </div>
+                                <div class="step"> <span>Stage 2</span> </div>
+                                <div class="step"> <span> Stage 3</span> </div>
+                                <div class="step"> <span>Stage 4</span> </div>
+                                <div class="step"> <span>Stage 5</span> </div>
+                            </div>
+                        </div>
+                        <div class="columns small-3">
+                            <a class="button expand completeButton">&#x2714 Mark Status as Complete</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div id='grid-container' class="row large-unstack padding-side-0" style="max-width: 100%;">
+            <div class="columns padding-side-0">
+                <ul class="accordion" data-accordion>
+                    <li class="accordion-item is-active" data-accordion-item>
+                        <div id="dropdown-container" class="accordion-title">
+                            <div class="row column margin-10-0">
+                                <select id="combobox" class="small-2">
+                                    <option>
+                                        Franchise Partners
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="accordion-content" data-tab-content>
+                            <div id="stage-container" class="hide">
+                                <ul class="tabs" data-tabs id="stage-tabs">
+                                    <li class="tabs-title" >
+                                        <a href="#stage-panel1">
+                                            Deal History
+                                        </a>
+                                    </li>
+                                    <li class="tabs-title is-active" aria-selected="true">
+                                        <a href="#stage-panel2">
+                                            Stage 1
+                                        </a>
+                                    </li>
+                                    <li class="tabs-title">
+                                        <a href="#stage-panel3">
+                                            Stage 2
+                                        </a>
+                                    </li>
+                                    <li class="tabs-title">
+                                        <a href="#stage-panel4">
+                                            Stage 3
+                                        </a>
+                                    </li>
+                                    <li class="tabs-title">
+                                        <a href="#stage-panel5">
+                                            Stage 4
+                                        </a>
+                                    </li>
+                                    <li class="tabs-title">
+                                        <a href="#stage-panel6">
+                                            Stage 5
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tabs-content" data-tabs-content="stage-tabs" style="height: 260px;">
+                                    <div class="tabs-panel" id="stage-panel1">                                   
+                                    </div>
+                                    <div class="tabs-panel is-active" id="stage-panel2">
+                                        <div id="myGrid2" style="width: 100%; height: 228px;"></div>
+                                    </div>
+                                    <div class="tabs-panel" id="stage-panel3">                                   
+                                    </div>
+                                    <div class="tabs-panel" id="stage-panel4">                                   
+                                    </div>
+                                    <div class="tabs-panel" id="stage-panel5">                                   
+                                    </div>
+                                    <div class="tabs-panel" id="stage-panel6">                                   
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="myGrid" style="width: 100%; height: 250px;"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="log-container" class="columns small-4 padding-side-0 hide" style="padding-bottom: 20px;">
+                <ul class="accordion" data-accordion>
+                    <li class="accordion-item is-active" data-accordion-item>
+                        <div class="accordion-title">
+                            <h5><b>Communication Log</b></h5>
+                        </div>
+                        <div class="accordion-content" data-tab-content>
+                        </div>
+                        <div class="row">
+                            <div class="columns margin-sides-15">
+                                <ul class="tabs" data-tabs id="log-tabs">
+                                    <li class="tabs-title is-active">
+                                        <a href="#log-panel1" aria-selected="true">
+                                            Notes
+                                        </a>
+                                    </li>
+                                    <li class="tabs-title">
+                                        <a href="#log-panel2">
+                                            Emails
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tabs-content" data-tabs-content="log-tabs">
+                                    <div class="tabs-panel is-active" id="log-panel1">
+                                        <div class="input-group">
+                                            <input placeholder="                        Share an update..."
+                                                class="input-group-field" type="text">
+                                            <div class="input-group-button">
+                                                <input type="submit" class="button" value="Submit">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tabs-panel" id="log-panel2">
+                                        <div class="input-group">
+                                            <input placeholder="                        Share an update..."
+                                                class="input-group-field" type="text">
+                                            <div class="input-group-button">
+                                                <input type="submit" class="button" value="Submit">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
+        integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.5.min.js"></script>
+    <script src='main.js'></script>
+</body>
+
+</html>

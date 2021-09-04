@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <select class="selectpicker" data-width="fit">
+        <option data-content='<span class="flag-icon flag-icon-us"></span> English'>English</option>
+      <option  data-content='<span class="flag-icon flag-icon-mx"></span> Español'>Español</option>
+    </select>
+    <div style="height: 200px; width: 100%;" class="flag-icon-background flag-icon-us"></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center">Location</th>
+                <th class="text-center">Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td class="text-center"><a class="btn btn-primary" href="/view?+16466635449">(646) 663-5449</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        $(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
+</body>
+
+</html>

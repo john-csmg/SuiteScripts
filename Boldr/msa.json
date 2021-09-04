@@ -1,0 +1,39 @@
+{
+    "records": [
+        {
+            "recid": 1,
+            "col1": "Atlanta, GA",
+            "col2": ""
+        },
+        {
+            "recid": 2,
+            "col1": "Miami, FL",
+            "col2": "MIA"
+        },
+        {
+            "recid": 3,
+            "col1": "Charleston, SC",
+            "col2": "CHR"
+        },
+        {
+            "recid": 4,
+            "col1": "Charlotte, NC",
+            "col2": "CHA"
+        },
+        {
+            "recid": 5,
+            "col1": "Memphis, TN",
+            "col2": "MEM"
+        },
+        {
+            "recid": 6,
+            "col1": "Tampa Bay, FL",
+            "col2": "TBA"
+        },
+        {
+            "recid": 7,
+            "col1": "Jacksonville, FL",
+            "col2": "JCK"
+        }
+    ]
+}

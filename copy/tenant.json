@@ -1,0 +1,16 @@
+{
+    "records": [
+        {
+            "recid": 1,
+            "col1": "Azul Holdings",
+            "col2": "Oprah Winfrey",
+            "col3": ""
+        },
+        {
+            "recid": 2,
+            "col1": "Charity Holdings",
+            "col2": "Peter Griffin",
+            "col3": ""
+        }
+    ]
+}

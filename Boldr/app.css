@@ -1,0 +1,191 @@
+body {
+    background-color: #becef2;
+}
+
+a {
+    color: black;
+}
+
+select {
+    margin-bottom: 10px;
+    height: 32px;
+    margin-left: 15px;
+}
+
+.dropdown.menu .has-submenu.is-down-arrow>a::after {
+    border-color: black transparent transparent;
+}
+
+.row, .flex-flow {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.column {
+    margin-bottom: .9375rem;
+    margin-top: .9375rem;
+    cursor: pointer;
+}
+
+.card {
+    padding: 20px;
+    background-color: white;
+    height: 130px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px 1px grey;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-section {
+    background-color: #ffca18;
+    padding: 15px 0px;
+    color: red;
+    width: 100%;
+    font-weight: bold;
+    border-radius: 2px;
+    margin: 0px 15px;
+}
+
+.bolder {
+    font-weight: bolder;
+}
+
+.accordion {
+    box-shadow: 0px 0px 4px 1px grey;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+.accordion-title {
+    background-color: whitesmoke;
+    color: black;
+    font-weight: bolder;
+    padding: 0;
+}
+
+.accordion-title .row, .accordion-content .row {
+    max-width: 100%;
+}
+
+.accordion:last-child .accordion-item .accordion-title {
+    padding-top: 0 !important;
+}
+
+.accordion:last-child .accordion-item .accordion-content {
+    margin-top: -17px;
+}
+
+.accordion-item:first-child>:first-child, .accordion-item:last-child>:last-child {
+    border-radius: 5px;
+}
+
+.is-active>.accordion-title::before {
+    content: '';
+}
+
+.button {
+    margin: 0;
+}
+
+.button.expand {
+    width: 100%;
+}
+
+.button.hollow {
+    color: #9491b6;
+    border: 1px solid lightgray;
+}
+
+.button.hollow:focus, .button.hollow:hover {
+    border: 1px solid #0c4d78;
+}
+
+.button:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.button:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.button-group .button, select {
+    font-size: 12px;
+}
+
+.button-group {
+    margin-bottom: 0;
+}
+
+.title {
+    font-size: 10px;
+    margin-top: 15px;
+}
+
+.breadcrumbs, .margin-10-0 {
+    margin: 10px 0;
+}
+
+.breadcrumbs li {
+    font-size: 1rem;
+    text-transform: capitalize;
+}
+
+.margin-auto {
+    margin: auto;
+}
+
+#stage-here .small-2 {
+    padding-right: 10px;
+    padding-left: 15px;
+}
+
+#chart-here .small-2, #stage-here .small-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.padding-side-0 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#dashboard .columns:first-child .accordion {
+    margin-top: 0;
+}
+
+#dashboard .columns:last-child .accordion {
+    margin-top: 0;
+    margin-left: 0;
+    height: 100%;
+}
+
+#dashboard .columns:last-child .accordion .accordion-title {
+    padding-top: 5px !important;
+    padding-left: 15px;
+    padding-bottom: 1px;
+    padding-right: 15px;
+}
+
+.tabs-panel.is-active {
+    display: block;
+    height: 216px;
+}
+
+.tabs-title>a {
+    padding: 10px 20px;
+}
+
+.margin-sides-15 {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.input-group-field {
+    margin-right: 10px;
+}

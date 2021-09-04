@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="arrow-progress-bar.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+
+            var back = jQuery(".prev");
+            var next = jQuery(".next");
+            var steps = jQuery(".step");
+
+            next.bind("click", function () {
+                jQuery.each(steps, function (i) {
+                    if (!jQuery(steps[i]).hasClass('current') && !jQuery(steps[i]).hasClass('done')) {
+                        jQuery(steps[i]).addClass('current');
+                        jQuery(steps[i - 1]).removeClass('current').addClass('done').find('span').text("");
+                        return false;
+                    }
+                })
+            });
+            back.bind("click", function () {
+                jQuery.each(steps, function (i) {
+                    if (jQuery(steps[i]).hasClass('done') && jQuery(steps[i + 1]).hasClass('current')) {
+                        jQuery(steps[i + 1]).removeClass('current');
+                        var t = i+ 1;
+                        jQuery(steps[i]).removeClass('done').addClass('current').find('span').text("Stage " + t);
+                        return false;
+                    }
+                })
+            });
+
+        })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="arrow-steps clearfix">
+                <div class="step current"> <span> Step 1</span> </div>
+                <div class="step"> <span>Step 2 some words</span> </div>
+                <div class="step"> <span> Step 3</span> </div>
+                <div class="step"> <span>Step 4</span> </div>
+            </div>
+            <div class="nav clearfix">
+                <a href="#" class="prev">Previous</a>
+                <a href="#" class="next pull-right">Next</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
