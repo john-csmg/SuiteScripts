@@ -342,7 +342,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             });
 
             if (stock === undefined) {
-                // logDebug('This product has no reference in the CSV data', `Product: ${product}, External ID: ${externalid}`);
+                logDebug('This product has no reference in the CSV data', `Product: ${product}, External ID: ${externalid}`);
             }
 
             return stock || 0; // If stock is undefined, substitute it with a zero
@@ -363,8 +363,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
         function sendEmail(subject, content) {
             const options = {};
             options.author = -5;
-            options.recipients = ['vish.patel@latestbuy.com.au', 'systems@latestbuy.com.au'];
-            options.cc = ['john.ian.recio@gmail.com'];
+            options.recipients = ['niel.cabrera@latestbuy.com.au', 'systems@latestbuy.com.au'];
             options.subject = subject;
             options.body = `${content}\n\n`;
             email.send(options);

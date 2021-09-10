@@ -2,11 +2,11 @@
  *@NApiVersion 2.1
  *@NScriptType ScheduledScript
  *@NModuleScope Public
- *@NAmdConfig ./LibraryConfig.json
+ *@NAmdConfig ./LibraryConfig2.json
  */
 
-define(['N/record', 'N/https', 'N/xml', 'N/log', 'N/search', 'N/format', 'N/runtime', 'N/email', 'N/file', 'Crypto', 'lodash', 'moment', 'N/task'],
-    function (record, https, xml, log, search, format, runtime, email, file, CryptoJS, _, moment, task) {
+ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'lodash', 'moment', 'N/task', 'jszip', 'xlsx'],
+ function (record, log, search, runtime, email, file, _, moment, task, JSZIP, XLSX) {
         let csvFileNameUsed = '';
 
         function updateProductStocks() {
@@ -143,6 +143,7 @@ define(['N/record', 'N/https', 'N/xml', 'N/log', 'N/search', 'N/format', 'N/runt
             });
             const csvContent = csvFile.getContents().split('\n');
             const csvData = [];
+            const lookUpData = getLookUpData();
             let nameIndex;
             let qtyIndex;
             let stockCodeIndex;
@@ -161,10 +162,22 @@ define(['N/record', 'N/https', 'N/xml', 'N/log', 'N/search', 'N/format', 'N/runt
                     qtyIndex = _.indexOf(rowData, 'Qty');
                     stockCodeIndex = _.indexOf(rowData, 'Stockcode');
                 } else {
-                    const qty = _.parseInt(rowData[qtyIndex]);
+                    let stock = _.parseInt(rowData[qtyIndex]);
 
-                    if (_.isInteger(qty)) {
-                        if (qty > 50) {
+                    if (lookUpData.length > 0) {
+                        for (const data of lookUpData) {
+                            const productCodeStockFile = formatToString(data['Stockcode']);
+                            const productCodeCsvFile = formatToString(rowData[stockCodeIndex]);
+
+                            if (productCodeStockFile === productCodeCsvFile) {
+                                stock = 0;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (_.isInteger(stock)) {
+                        if (stock > 50) {
                             csvData.push({
                                 Name: rowData[nameIndex],
                                 Stock: 50,
@@ -173,7 +186,7 @@ define(['N/record', 'N/https', 'N/xml', 'N/log', 'N/search', 'N/format', 'N/runt
                         } else {
                             csvData.push({
                                 Name: rowData[nameIndex],
-                                Stock: qty,
+                                Stock: stock,
                                 ExternalID: rowData[stockCodeIndex]
                             });
                         }
@@ -182,6 +195,37 @@ define(['N/record', 'N/https', 'N/xml', 'N/log', 'N/search', 'N/format', 'N/runt
             }
 
             return csvData;
+        }
+
+        function formatToString(val) {
+            return val ? val.toString().trim().toLowerCase() : val;
+        }
+
+        function getLookUpData() {
+            // logAudit('Execute checkLookUpData function');
+
+            let excelData = [];
+
+            try {
+                // XLSX File
+                const excelFile = file.load({
+                    id: 5680966
+                }).getContents();
+                const workbook = XLSX.read(excelFile, {
+                    type: 'base64'
+                });
+
+                // Fetch the name of first sheet
+                const firstSheet = workbook.SheetNames[0]; // Assuming that we only need the first sheet
+
+                // Read all rows from the first sheet into an JSON array.
+                excelData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+            } catch (err) {
+                sendEmail('BPM Stock Update - Stock override file not found', 'Could not find the Excel file. Please check manually.');
+                // logError('Stock override file not found!');
+            }
+
+            return excelData;
         }
 
         function getInternalId() {
@@ -268,8 +312,7 @@ define(['N/record', 'N/https', 'N/xml', 'N/log', 'N/search', 'N/format', 'N/runt
         function sendEmail(subject, content) {
             var options = {};
             options.author = -5;
-            options.recipients = ['vish.patel@latestbuy.com.au', 'systems@latestbuy.com.au'];
-            options.cc = ['john.ian.recio@gmail.com'];
+            options.recipients = ['niel.cabrera@latestbuy.com.au', 'systems@latestbuy.com.au'];
             options.subject = subject;
             options.body = `${content}\n\n`;
             email.send(options);

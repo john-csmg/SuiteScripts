@@ -214,13 +214,14 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             const dateToday = moment().add(13, 'hours').format('DD/MM/YYYY');
             let internalId = '';
 
+            csvFileNameUsed = `${moment().add(13, 'hours').format('DDMMYY')}.xlsm`;
+
             for (const result of results) {
                 const supplier = result.getText({ name: 'owner' }).toLowerCase();
                 const dateCreated = moment(getDateCreated(result.getValue({ name: 'created' }))).format('DD/MM/YYYY');
 
                 if (dateToday === dateCreated && supplier.includes('electus')) {
                     internalId = result.getValue({ name: 'internalid' });
-                    csvFileNameUsed = result.getValue({ name: 'name' });
                     break;
                 }
             }
@@ -301,8 +302,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
         function sendEmail(subject, content) {
             const options = {};
             options.author = -5;
-            options.recipients = ['vish.patel@latestbuy.com.au', 'systems@latestbuy.com.au'];
-            options.cc = ['john.ian.recio@gmail.com'];
+            options.recipients = ['niel.cabrera@latestbuy.com.au', 'systems@latestbuy.com.au'];
             options.subject = subject;
             options.body = `${content}\n\n`;
             email.send(options);

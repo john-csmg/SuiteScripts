@@ -87,8 +87,18 @@ define(['N/search', 'N/record', 'N/email', 'N/runtime', 'N/file', 'N/log'], func
 			return resultsArray;
 		} catch (e) {
 			// Error
-			log.error('e', e);
+			// log.error('e', e);
+			sendEmail('My Shopping Product Feed 2.0 Script Error', `Error: ${e}`);
 		}
+	}
+
+	function sendEmail(subject, content) {
+		const options = {};
+		options.author = -5;
+		options.recipients = ['niel.cabrera@latestbuy.com.au', 'systems@latestbuy.com.au'];
+		options.subject = subject;
+		options.body = `${content}\n\n`;
+		email.send(options);
 	}
 
 	return {
