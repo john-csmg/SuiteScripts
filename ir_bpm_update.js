@@ -7,7 +7,7 @@
 
 define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'lodash', 'moment', 'N/task', 'jszip', 'xlsx'],
     function (record, log, search, runtime, email, file, _, moment, task, JSZIP, XLSX) {
-        let csvFileNameUsed = '';
+        let stockFileName = '';
 
         function updateProductStocks() {
             const internalId = getInternalId();
@@ -56,7 +56,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
                 }
             } else {
                 // logDebug('File not found!');
-                sendEmail('BPM Stock Update - Stock file not found', `Could not find the stock CSV file. \n CSV File: ${csvFileNameUsed}`);
+                sendEmail('BPM Stock Update - Stock file not found', `Could not find the stock file. <br/>  Please try searching using Netsuite Global Search. <br/><br/> File: <b>${stockFileName}</b>`);
             }
         }
 
@@ -162,58 +162,62 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             let dueIndex;
             let descriptionIndex;
 
-            for (let i = 0; i < csvContent.length - 1; i++) {
-                /*
-                 * replace - remove extra spaces
-                 * split - splitted into array with special handling
-                 * special handling - when text is enclosed in a quotation mark even if it has a comma in it, it is not included in the array split
-                */
-                const rowData = csvContent[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(txt => txt.trim());
-
-                // Dynamically get the index of the column header
-                if (i === 0) {
-                    descriptionIndex = _.indexOf(rowData, 'Description');
-                    stockIndex = _.indexOf(rowData, 'SOH');
-                    externalIdIndex = _.indexOf(rowData, 'Product Code');
-                    dueIndex = _.indexOf(rowData, 'Due');
-                } else {
-                    const formattedDue = moment(rowData[dueIndex]).format('DD/MM/YYYY');
-                    const due = formattedDue === 'Invalid date' ? rowData[dueIndex] : formattedDue;
-                    const formattedStock = formatStock(rowData[stockIndex]);
-                    let stock = _.parseInt(formattedStock === '-' ? 0 : formattedStock);
-
-                    if (lookUpData.length > 0) {
-                        for (const data of lookUpData) {
-                            const productCodeStockFile = formatToString(data['Product Code']);
-                            const productCodeCsvFile = formatToString(rowData[externalIdIndex]);
-
-                            if (productCodeStockFile === productCodeCsvFile) {
-                                stock = 0;
-                                break;
+            if (csvContent.length > 5) {
+                for (let i = 0; i < csvContent.length; i++) {
+                    /*
+                     * replace - remove extra spaces
+                     * split - splitted into array with special handling
+                     * special handling - when text is enclosed in a quotation mark even if it has a comma in it, it is not included in the array split
+                    */
+                    const rowData = csvContent[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(txt => txt.trim());
+    
+                    // Dynamically get the index of the column header
+                    if (i === 0) {
+                        descriptionIndex = _.indexOf(rowData, 'Description');
+                        stockIndex = _.indexOf(rowData, 'SOH');
+                        externalIdIndex = _.indexOf(rowData, 'Product Code');
+                        dueIndex = _.indexOf(rowData, 'Due');
+                    } else {
+                        const formattedDue = moment(rowData[dueIndex]).format('DD/MM/YYYY');
+                        const due = formattedDue === 'Invalid date' ? rowData[dueIndex] : formattedDue;
+                        const formattedStock = formatStock(rowData[stockIndex]);
+                        let stock = _.parseInt(formattedStock === '-' ? 0 : formattedStock);
+    
+                        if (lookUpData.length > 0) {
+                            for (const data of lookUpData) {
+                                const productCodeStockFile = formatToString(data['Product Code']);
+                                const productCodeCsvFile = formatToString(rowData[externalIdIndex]);
+    
+                                if (productCodeStockFile === productCodeCsvFile) {
+                                    stock = 0;
+                                    break;
+                                }
+                            }
+                        }
+    
+                        if (_.isInteger(stock)) {
+                            if (stock > 20) {
+                                csvData.push({
+                                    description: rowData[descriptionIndex],
+                                    stock: 20,
+                                    externalId: rowData[externalIdIndex],
+                                    due
+                                });
+                            } else {
+                                csvData.push({
+                                    description: rowData[descriptionIndex],
+                                    stock,
+                                    externalId: rowData[externalIdIndex],
+                                    due
+                                });
                             }
                         }
                     }
-
-                    if (_.isInteger(stock)) {
-                        if (stock > 20) {
-                            csvData.push({
-                                description: rowData[descriptionIndex],
-                                stock: 20,
-                                externalId: rowData[externalIdIndex],
-                                due
-                            });
-                        } else {
-                            csvData.push({
-                                description: rowData[descriptionIndex],
-                                stock,
-                                externalId: rowData[externalIdIndex],
-                                due
-                            });
-                        }
-                    }
                 }
+            } else {
+                sendEmail('BPM Stock Update - Blank stock file', `File: <b>${stockFileName}</b> is empty. <br/> Please coordinate this with the supplier.`);
             }
-
+            
             return csvData;
         }
 
@@ -263,7 +267,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             const dateToday = moment().add(13, 'hours').format('DD/MM/YYYY');
             let internalId = '';
 
-            csvFileNameUsed = `${csvFileName} - ${dateToday}`;
+            stockFileName = `${csvFileName} - ${dateToday}`;
             
             for (const result of results) {
                 const searchFile = result.getValue({ name: 'name' });
@@ -342,7 +346,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             });
 
             if (stock === undefined) {
-                logDebug('This product has no reference in the CSV data', `Product: ${product}, External ID: ${externalid}`);
+                logDebug('This product has no reference in the stock file data', `Product: ${product}, External ID: ${externalid}`);
             }
 
             return stock || 0; // If stock is undefined, substitute it with a zero

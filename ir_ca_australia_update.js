@@ -7,7 +7,7 @@
 
 define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'lodash', 'moment', 'N/task'],
     function (record, log, search, runtime, email, file, _, moment, task) {
-        let csvFileNameUsed = '';
+        let stockFileName = '';
 
         function updateProductStocks() {
             const internalId = getInternalId();
@@ -56,7 +56,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
                 }
             } else {
                 // logDebug('File not found!');
-                sendEmail('CA Australia Stock Update - Stock file not found', `Could not find the stock CSV file. \n CSV File: ${csvFileNameUsed}`);
+                sendEmail('CA Australia Stock Update - Stock file not found', `Could not find the stock file. <br/>  Please try searching using Netsuite Global Search. <br/><br/> File: <b>${stockFileName}</b>`);
             }
         }
 
@@ -147,41 +147,45 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             let qtyIndex;
             let stockCodeIndex;
 
-            for (let i = 0; i < csvContent.length; i++) {
-                /*
-                 * replace - remove excess quotation mark
-                 * replace - remove the carriage or \r
-                 * split - splitted into array with special handling
-                 * special handling - when text is enclosed in a quotation mark even if it has a comma in it, it is not included in the array split
-                */
-                const rowData = csvContent[i].replace(/"/g, '').replace(/[\r]/g, '').trim().split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-
-                // Dynamically get the index of the column header
-                if (i === 0) {
-                    nameIndex = _.indexOf(rowData, 'DESCRIPTION');
-                    qtyIndex = _.indexOf(rowData, 'STOCK');
-                    stockCodeIndex = _.indexOf(rowData, 'CODE');
-                } else {
-                    const qty = _.parseInt(rowData[qtyIndex]);
-
-                    if (_.isInteger(qty)) {
-                        if (qty > 50) {
-                            csvData.push({
-                                Name: rowData[nameIndex],
-                                Stock: 50,
-                                ExternalID: rowData[stockCodeIndex]
-                            });
-                        } else {
-                            csvData.push({
-                                Name: rowData[nameIndex],
-                                Stock: qty,
-                                ExternalID: rowData[stockCodeIndex]
-                            });
+            if (csvContent.length > 5) {
+                for (let i = 0; i < csvContent.length; i++) {
+                    /*
+                     * replace - remove excess quotation mark
+                     * replace - remove the carriage or \r
+                     * split - splitted into array with special handling
+                     * special handling - when text is enclosed in a quotation mark even if it has a comma in it, it is not included in the array split
+                    */
+                    const rowData = csvContent[i].replace(/"/g, '').replace(/[\r]/g, '').trim().split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+    
+                    // Dynamically get the index of the column header
+                    if (i === 0) {
+                        nameIndex = _.indexOf(rowData, 'DESCRIPTION');
+                        qtyIndex = _.indexOf(rowData, 'STOCK');
+                        stockCodeIndex = _.indexOf(rowData, 'CODE');
+                    } else {
+                        const qty = _.parseInt(rowData[qtyIndex]);
+    
+                        if (_.isInteger(qty)) {
+                            if (qty > 50) {
+                                csvData.push({
+                                    Name: rowData[nameIndex],
+                                    Stock: 50,
+                                    ExternalID: rowData[stockCodeIndex]
+                                });
+                            } else {
+                                csvData.push({
+                                    Name: rowData[nameIndex],
+                                    Stock: qty,
+                                    ExternalID: rowData[stockCodeIndex]
+                                });
+                            }
                         }
                     }
                 }
+            } else {
+                sendEmail('CA Australia Stock Update - Blank stock file', `File: <b>${stockFileName}</b> is empty. <br/> Please coordinate this with the supplier.`);
             }
-
+            
             return csvData;
         }
 
@@ -196,7 +200,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             const csvFileName = `CA AUSTRALIA SOH REPORT ${dateToday}.csv`;
             let internalId = '';
 
-            csvFileNameUsed = `${csvFileName}`;
+            stockFileName = `${csvFileName}`;
 
             for (const result of results) {
                 const searchFile = result.getValue({ name: 'name' });
@@ -259,7 +263,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             });
 
             if (stock === undefined) {
-                logDebug('This product has no reference in the CSV data', `Product: ${product}, External ID: ${externalid}`);
+                logDebug('This product has no reference in the stock file data', `Product: ${product}, External ID: ${externalid}`);
             }
 
             return stock || 0; // If stock is undefined, substitute it with a zero

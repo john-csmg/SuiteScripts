@@ -7,7 +7,7 @@
 
  define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'lodash', 'moment', 'N/task', 'jszip', 'xlsx'],
  function (record, log, search, runtime, email, file, _, moment, task, JSZIP, XLSX) {
-        let csvFileNameUsed = '';
+        let stockFileName = '';
 
         function updateProductStocks() {
             const internalId = getInternalId();
@@ -56,7 +56,7 @@
                 }
             } else {
                 // logDebug('File not found');
-                sendEmail('All Brands Toys Stock Update - Stock file not found', `Could not find the stock CSV file. \n CSV File: ${csvFileNameUsed}`);
+                sendEmail('All Brands Toys Stock Update - Stock file not found', `Could not find the stock file. <br/>  Please try searching using Netsuite Global Search. <br/><br/> File: <b>${stockFileName}</b>`);
             }
         }
 
@@ -148,52 +148,56 @@
             let qtyIndex;
             let stockCodeIndex;
 
-            for (let i = 0; i < csvContent.length; i++) {
-                /*
-                 * replace - removes the carriage or \r
-                 * split - splitted into array with special handling
-                 * special handling: when text is enclosed in a quotation mark even if it has a comma in it, it is not included in the split
-                */
-                const rowData = csvContent[i].replace(/[\r]/g, '').split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-
-                // dynamically get the index of the column header
-                if (i === 0) {
-                    nameIndex = _.indexOf(rowData, 'Name');
-                    qtyIndex = _.indexOf(rowData, 'Qty');
-                    stockCodeIndex = _.indexOf(rowData, 'Stockcode');
-                } else {
-                    let stock = _.parseInt(rowData[qtyIndex]);
-
-                    if (lookUpData.length > 0) {
-                        for (const data of lookUpData) {
-                            const productCodeStockFile = formatToString(data['Stockcode']);
-                            const productCodeCsvFile = formatToString(rowData[stockCodeIndex]);
-
-                            if (productCodeStockFile === productCodeCsvFile) {
-                                stock = 0;
-                                break;
+            if (csvContent.length > 5) {
+                for (let i = 0; i < csvContent.length; i++) {
+                    /*
+                     * replace - removes the carriage or \r
+                     * split - splitted into array with special handling
+                     * special handling: when text is enclosed in a quotation mark even if it has a comma in it, it is not included in the split
+                    */
+                    const rowData = csvContent[i].replace(/[\r]/g, '').split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+    
+                    // dynamically get the index of the column header
+                    if (i === 0) {
+                        nameIndex = _.indexOf(rowData, 'Name');
+                        qtyIndex = _.indexOf(rowData, 'Qty');
+                        stockCodeIndex = _.indexOf(rowData, 'Stockcode');
+                    } else {
+                        let stock = _.parseInt(rowData[qtyIndex]);
+    
+                        if (lookUpData.length > 0) {
+                            for (const data of lookUpData) {
+                                const productCodeStockFile = formatToString(data['Stockcode']);
+                                const productCodeCsvFile = formatToString(rowData[stockCodeIndex]);
+    
+                                if (productCodeStockFile === productCodeCsvFile) {
+                                    stock = 0;
+                                    break;
+                                }
+                            }
+                        }
+    
+                        if (_.isInteger(stock)) {
+                            if (stock > 50) {
+                                csvData.push({
+                                    Name: rowData[nameIndex],
+                                    Stock: 50,
+                                    ExternalID: rowData[stockCodeIndex]
+                                });
+                            } else {
+                                csvData.push({
+                                    Name: rowData[nameIndex],
+                                    Stock: stock,
+                                    ExternalID: rowData[stockCodeIndex]
+                                });
                             }
                         }
                     }
-
-                    if (_.isInteger(stock)) {
-                        if (stock > 50) {
-                            csvData.push({
-                                Name: rowData[nameIndex],
-                                Stock: 50,
-                                ExternalID: rowData[stockCodeIndex]
-                            });
-                        } else {
-                            csvData.push({
-                                Name: rowData[nameIndex],
-                                Stock: stock,
-                                ExternalID: rowData[stockCodeIndex]
-                            });
-                        }
-                    }
                 }
+            } else {
+                sendEmail('All Brands Toys Stock Update - Blank stock file', `File: <b>${stockFileName}</b> is empty. <br/> Please coordinate this with the supplier.`);
             }
-
+            
             return csvData;
         }
 
@@ -221,7 +225,7 @@
                 // Read all rows from the first sheet into an JSON array.
                 excelData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
             } catch (err) {
-                sendEmail('BPM Stock Update - Stock override file not found', 'Could not find the Excel file. Please check manually.');
+                sendEmail('All Brands Toys Stock Update - Stock override file not found', 'Could not find the Excel file. Please check manually.');
                 // logError('Stock override file not found!');
             }
 
@@ -238,7 +242,7 @@
             const csvFileName = `product_feed_${moment().add(13, 'hours').subtract(1, 'days').format('YYYY_MM_DD')}.csv`;
             let internalId = '';
 
-            csvFileNameUsed = csvFileName;
+            stockFileName = csvFileName;
 
             for (const result of results) {
                 const searchFile = result.getValue({ name: 'name' });
@@ -303,14 +307,14 @@
             });
 
             if (stock === undefined) {
-                logDebug('This product has no reference in the CSV data', `Product: ${product}, External ID: ${externalid}`);
+                logDebug('This product has no reference in the stock file data', `Product: ${product}, External ID: ${externalid}`);
             }
 
             return stock || 0; // If stock is undefined, substitute it with a zero
         }
 
         function sendEmail(subject, content) {
-            var options = {};
+            const options = {};
             options.author = -5;
             options.recipients = ['niel.cabrera@latestbuy.com.au', 'systems@latestbuy.com.au'];
             options.subject = subject;
@@ -322,8 +326,8 @@
             try {
                 updateProductStocks();
             } catch (error) {
-                sendEmail('All brands Toys Inventory Update Script Error', `Error: ${error}`);
-                // logError('All brands toys error', error);
+                sendEmail('All Brands Toys Inventory Update Script Error', `Error: ${error}`);
+                // logError('All Brands Toys Error', error);
             }
         }
 

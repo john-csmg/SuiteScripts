@@ -7,7 +7,8 @@
 
 define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'lodash', 'moment', 'N/task', 'jszip', 'xlsx'],
     function (record, log, search, runtime, email, file, _, moment, task, JSZIP, XLSX) {
-        let csvFileNameUsed = '';
+        let stockFileName = '';
+
         function updateProductStocks() {
             const internalId = getInternalId();
 
@@ -55,7 +56,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
                 }
             } else {
                 // logDebug('File not found!');
-                sendEmail('BMS Stock Update - Stock file not found', `Could not find the stock CSV file. \n CSV File: ${csvFileNameUsed}`);
+                sendEmail('BMS Stock Update - Stock file not found', `Could not find the stock file. <br/>  Please try searching using Netsuite Global Search. <br/><br/> File: <b>${stockFileName}</b>`);
             }
         }
 
@@ -154,7 +155,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
 
                 const excelData = [];
 
-                if (excelContent.length > 0) {
+                if (excelContent.length > 15) {
                     for (let i = 11; i < excelContent.length - 1; i++) {
                         /*
                          * split - splitted into array with special handling
@@ -172,8 +173,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
 
                     return excelData;
                 } else {
-                    // logError('Feed file not found!');
-                    sendEmail('BMS Stock Update - Stock file not found', `Could not find the stock CSV file. \n CSV File: ${csvFileNameUsed}`);
+                    sendEmail('BMS Stock Update - Blank stock file', `File: <b>${stockFileName}</b> is empty. <br/> Please coordinate this with the supplier.`);
                 }
             } catch (err) {
                 sendEmail('BMS Inventory Update Script Error', `Error: ${err}`);
@@ -189,18 +189,18 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             }).run();
             const results = resultSet.getRange({ start: 0, end: 200 });
             const fileDate = moment().add(13, 'hours').format('YYYYMMDD');
-            const csvFileName = `BMSSF_${fileDate}`;
+            const excelFileName = `BMSSF_${fileDate}`;
             const dateToday = moment().add(13, 'hours').format('DD/MM/YYYY');
             const temp = [];
             let ctr = 0;
 
-            csvFileNameUsed = `${csvFileName} ${dateToday}`;
+            stockFileName = `${excelFileName}`;
 
             for (const result of results) {
                 const searchFile = result.getValue({ name: 'name' });
                 const dateCreated = getDateCreated(result.getValue({ name: 'created' }));
 
-                if (searchFile.includes(csvFileName) && dateToday === dateCreated[0].formattedDate) {
+                if (searchFile.includes(excelFileName) && dateToday === dateCreated[0].formattedDate) {
                     const data = {
                         internalid: result.getValue({ name: 'internalid' }),
                         nsDate: result.getValue({ name: 'created' }),
@@ -302,7 +302,7 @@ define(['N/record', 'N/log', 'N/search', 'N/runtime', 'N/email', 'N/file', 'loda
             });
 
             if (stock === undefined) {
-                logDebug('This product has no reference in the CSV data', `Product: ${product}, External ID: ${externalid}`);
+                logDebug('This product has no reference in the stock file data', `Product: ${product}, External ID: ${externalid}`);
             }
 
             return stock || 0; // If stock is undefined, substitute it with a zero
